@@ -20,12 +20,17 @@ namespace Scripts.UI
 
         private void OnStartButtonClick()
         {
-            SceneManager.LoadScene(SceneName.Game.ToString());
+            LoadScene(SceneName.Game);
         }
 
         private void OnScoreTableButtonClick()
         {
-            SceneManager.LoadScene(SceneName.ScoreTable.ToString());
+            LoadScene(SceneName.ScoreTable);
+        }
+
+        private void LoadScene(SceneName sceneName)
+        {
+            SceneManager.LoadScene(sceneName.ToString());
         }
     }
 }
