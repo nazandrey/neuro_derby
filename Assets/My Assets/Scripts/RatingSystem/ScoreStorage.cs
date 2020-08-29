@@ -5,34 +5,33 @@ namespace Scripts.RatingSystem
 {
     public class ScoreStorage
     {
-        private List<ScoreDto> _scores = new List<ScoreDto>();
+        private Dictionary<string, double> _scores = new Dictionary<string, double>();
 
-        public IEnumerable<ScoreDto> GetAllScores()
+        public IEnumerable<double> GetAllScores()
         {
-            return _scores;
+            return _scores.Values;
         }
 
-        public bool TryAddScore(ScoreDto newScore)
+        public bool TryAddScore(string id, double rating)
         {
-            if (_scores.Exists(score => score.Id == newScore.Id))
+            if (_scores.ContainsKey(id))
                 return false;
 
-            _scores.Add(newScore);
+            _scores.Add(id, rating);
             return true;
         }
 
-        public ScoreDto GetScore(string id)
+        public double GetScore(string id)
         {
-            return _scores.FirstOrDefault(player => player.Id == id);
+            return _scores[id];
         }
 
-        public bool TryUpdateScore(ScoreDto score)
+        public bool TryUpdateScore(string id, double rating)
         {
-            var playerFromStorage = GetScore(score.Id);
-            if (playerFromStorage == null)            
+            if (!_scores.ContainsKey(id))            
                 return false;
-                
-            playerFromStorage.Rating = score.Rating;
+
+            _scores[id] = rating;
             return true;            
         }
     }
