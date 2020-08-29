@@ -1,0 +1,16 @@
+{
+    "name": "MyAssets",
+    "references": [
+        "GUID:6a46bf7165d91f4418f634b84887dabb",
+        "GUID:4f626e86a5952934da4fdef22bad9768"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
