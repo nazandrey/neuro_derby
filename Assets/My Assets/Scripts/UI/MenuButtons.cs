@@ -18,6 +18,12 @@ namespace Scripts.UI
             ScoreTableButton.onClick.AddListener(OnScoreTableButtonClick);
         }
 
+        private void OnDestroy()
+        {
+            StartButton.onClick.RemoveListener(OnStartButtonClick);
+            ScoreTableButton.onClick.RemoveListener(OnScoreTableButtonClick);
+        }
+
         private void OnStartButtonClick()
         {
             LoadScene(SceneName.Game);
