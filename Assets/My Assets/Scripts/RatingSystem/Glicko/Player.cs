@@ -1,6 +1,6 @@
 ﻿using Glicko2;
 
-namespace Scripts.Glicko
+namespace Scripts.RatingSystem.Glicko
 {
     public class Player
     {

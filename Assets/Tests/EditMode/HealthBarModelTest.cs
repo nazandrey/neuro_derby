@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using My_Assets.Scripts.Models;
+using Scripts.Models;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 

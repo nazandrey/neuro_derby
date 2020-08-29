@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Scripts.Glicko
+namespace Scripts.FileOperations
 {
     public class FileSaver
     {

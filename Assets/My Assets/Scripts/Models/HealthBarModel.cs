@@ -1,4 +1,4 @@
-﻿namespace My_Assets.Scripts.Models
+﻿namespace Scripts.Models
 {
     public class HealthBarModel
     {

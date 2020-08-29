@@ -3,9 +3,10 @@ using System.Linq;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Glicko2;
+using Scripts.FileOperations;
 using UnityEngine;
 
-namespace Scripts.Glicko
+namespace Scripts.RatingSystem.Glicko
 {
     public class GlickoStarter : MonoBehaviour
     {

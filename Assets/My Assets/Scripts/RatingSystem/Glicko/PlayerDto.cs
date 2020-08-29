@@ -1,4 +1,4 @@
-﻿namespace Scripts.Glicko
+﻿namespace Scripts.RatingSystem.Glicko
 {
     public class PlayerDto
     {
