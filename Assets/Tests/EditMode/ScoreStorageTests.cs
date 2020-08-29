@@ -9,7 +9,7 @@ namespace Tests.EditMode
         [Test]
         public void GetAllScores_Init_EmptyStorage()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
 
             CollectionAssert.IsEmpty(scoreStorage.GetAllScores());
         }
@@ -17,7 +17,7 @@ namespace Tests.EditMode
         [Test]
         public void TryAddScore_NoName_StorageWithOneEntry()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
 
             var isAdded = scoreStorage.TryAddScore("", default);
 
@@ -27,7 +27,7 @@ namespace Tests.EditMode
         [Test]
         public void TryAddScore_SameName_StorageWithOneEntry()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
             const string scoreId = nameof(scoreId);
             var rating1 = 1;
             var rating2 = 2;
@@ -43,7 +43,7 @@ namespace Tests.EditMode
         [Test]
         public void GetAllScores_ScoresAdded_NonEmptyStorage()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
             const string score1Id = nameof(score1Id);
             const string score2Id = nameof(score2Id);
             var rating1 = 1;
@@ -61,7 +61,7 @@ namespace Tests.EditMode
         [Test]
         public void GetScore_GotScore()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
             const string scoreId = nameof(scoreId);
             var initRating = 1;
             scoreStorage.TryAddScore(scoreId, initRating);
@@ -74,7 +74,7 @@ namespace Tests.EditMode
         [Test]
         public void TryUpdateScore_ScoreExists_ScoreUpdated()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
             const string scoreId = nameof(scoreId);
             var initRating = 1;
             scoreStorage.TryAddScore(scoreId, initRating);
@@ -90,7 +90,7 @@ namespace Tests.EditMode
         [Test]
         public void UpdateScore_NoScore_ScoreNotUpdated()
         {
-            var scoreStorage = new ScoreStorage();
+            var scoreStorage = new ScoreStorage<string, double>();
             const string scoreId = nameof(scoreId);
 
             var isUpdated = scoreStorage.TryUpdateScore(scoreId, default);

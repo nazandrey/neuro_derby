@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Scripts.RatingSystem
 {
-    public class ScoreStorage
+    public class ScoreStorage<TKey, TRating>
     {
-        private Dictionary<string, double> _scores = new Dictionary<string, double>();
+        private Dictionary<TKey, TRating> _scores = new Dictionary<TKey, TRating>();
 
-        public IEnumerable<double> GetAllScores()
+        public IEnumerable<TRating> GetAllScores()
         {
             return _scores.Values;
         }
 
-        public bool TryAddScore(string id, double rating)
+        public bool TryAddScore(TKey id, TRating rating)
         {
             if (_scores.ContainsKey(id))
                 return false;
@@ -21,12 +20,12 @@ namespace Scripts.RatingSystem
             return true;
         }
 
-        public double GetScore(string id)
+        public TRating GetScore(TKey id)
         {
             return _scores[id];
         }
 
-        public bool TryUpdateScore(string id, double rating)
+        public bool TryUpdateScore(TKey id, TRating rating)
         {
             if (!_scores.ContainsKey(id))            
                 return false;
