@@ -1,4 +1,4 @@
-﻿namespace NeuroDerby
+﻿namespace NeuroDerby.Core
 {
     public enum SceneName
     {
