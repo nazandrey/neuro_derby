@@ -86,6 +86,7 @@ namespace Tests.EditMode
 
             var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
             Assert.AreEqual(initScore, scoreFromStorage);
+            Assert.AreNotEqual(initScore, targetScore);
 
             var isUpdated = _scoreStorage.TryUpdateScore(ScoreId, targetScore);
 
