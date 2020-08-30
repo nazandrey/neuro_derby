@@ -67,7 +67,7 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void GetScore_GotScore()
+        public void GetScore_HasId_GotScore()
         {
             var initScore = Score1;
             _scoreStorage.TryAddScore(ScoreId, initScore);
@@ -75,6 +75,14 @@ namespace Tests.EditMode
             var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
 
             Assert.AreEqual(initScore, scoreFromStorage);
+        }
+
+        [Test]
+        public void GetScore_NoId_DefaultResult()
+        {
+            var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
+
+            Assert.AreEqual((double)default, scoreFromStorage);
         }
 
         [Test]

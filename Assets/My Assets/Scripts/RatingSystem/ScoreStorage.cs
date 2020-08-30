@@ -22,7 +22,7 @@ namespace Scripts.RatingSystem
 
         public TRating GetScore(TKey id)
         {
-            return _scores[id];
+            return _scores.ContainsKey(id) ? _scores[id] : default;
         }
 
         public bool TryUpdateScore(TKey id, TRating rating)
