@@ -28,12 +28,35 @@ namespace Tests.EditMode
         }
 
         [Test]
+        public void GetAllScores_ScoresAdded_NonEmptyStorage()
+        {
+            _scoreStorage.TryAddScore(Score1Id, Score1);
+            _scoreStorage.TryAddScore(Score2Id, Score2);
+
+            var scores = _scoreStorage.GetAllScores();
+            CollectionAssert.IsNotEmpty(scores);
+            Assert.AreEqual(2, scores.Count());
+            CollectionAssert.Contains(scores, Score1);
+            CollectionAssert.Contains(scores, Score2);
+        }
+
+        [Test]
         public void TryAddScore_IdNotAdded_ScoreAdded()
         {
             var isAdded = _scoreStorage.TryAddScore(ScoreId, Score1);
 
             Assert.IsTrue(isAdded);
-            var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
+            var scoreFromStorage = GetScoreById(ScoreId);
+            Assert.AreEqual(Score1, scoreFromStorage);
+        }
+
+        [Test]
+        public void TryAddScore_IdEmptyString_ScoreAdded()
+        {
+            var isAdded = _scoreStorage.TryAddScore(string.Empty, Score1);
+
+            Assert.IsTrue(isAdded);
+            _scoreStorage.TryGetScore(string.Empty, out var scoreFromStorage);
             Assert.AreEqual(Score1, scoreFromStorage);
         }
 
@@ -52,35 +75,21 @@ namespace Tests.EditMode
             CollectionAssert.DoesNotContain(scores, Score2);
         }
 
-
         [Test]
-        public void GetAllScores_ScoresAdded_NonEmptyStorage()
-        {
-            _scoreStorage.TryAddScore(Score1Id, Score1);
-            _scoreStorage.TryAddScore(Score2Id, Score2);
-
-            var scores = _scoreStorage.GetAllScores();
-            CollectionAssert.IsNotEmpty(scores);
-            Assert.AreEqual(2, scores.Count());
-            CollectionAssert.Contains(scores, Score1);
-            CollectionAssert.Contains(scores, Score2);
-        }
-
-        [Test]
-        public void GetScore_HasId_GotScore()
+        public void TryGetScore_HasId_GotScore()
         {
             var initScore = Score1;
             _scoreStorage.TryAddScore(ScoreId, initScore);
 
-            var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
+            var scoreFromStorage = GetScoreById(ScoreId);
 
             Assert.AreEqual(initScore, scoreFromStorage);
         }
 
         [Test]
-        public void GetScore_NoId_DefaultResult()
+        public void TryGetScore_NoId_FalseAndDefaultResult()
         {
-            var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
+            var scoreFromStorage = GetScoreById(ScoreId, false);
 
             Assert.AreEqual((double)default, scoreFromStorage);
         }
@@ -92,23 +101,30 @@ namespace Tests.EditMode
             _scoreStorage.TryAddScore(ScoreId, initScore);
             var targetScore = Score2;
 
-            var scoreFromStorage = _scoreStorage.GetScore(ScoreId);
+            var scoreFromStorage = GetScoreById(ScoreId);
             Assert.AreEqual(initScore, scoreFromStorage);
             Assert.AreNotEqual(initScore, targetScore);
 
             var isUpdated = _scoreStorage.TryUpdateScore(ScoreId, targetScore);
 
-            scoreFromStorage = _scoreStorage.GetScore(ScoreId);
+            _scoreStorage.TryGetScore(ScoreId, out scoreFromStorage);
             Assert.IsTrue(isUpdated);
             Assert.AreEqual(targetScore, scoreFromStorage);
         }
 
         [Test]
-        public void UpdateScore_NoScore_ScoreNotUpdated()
+        public void TryUpdateScore_NoScore_ScoreNotUpdated()
         {
             var isUpdated = _scoreStorage.TryUpdateScore(ScoreId, default);
 
             Assert.IsFalse(isUpdated);
+        }
+
+        private double GetScoreById(string scoreId, bool assertIsGotten = true)
+        {
+            var isGotten = _scoreStorage.TryGetScore(scoreId, out var scoreFromStorage);
+            Assert.IsTrue(assertIsGotten ? isGotten : !isGotten);
+            return scoreFromStorage;
         }
     }
 }

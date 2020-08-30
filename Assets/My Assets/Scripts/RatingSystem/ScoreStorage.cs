@@ -20,9 +20,14 @@ namespace Scripts.RatingSystem
             return true;
         }
 
-        public TRating GetScore(TKey id)
+        public bool TryGetScore(TKey id, out TRating score)
         {
-            return _scores.ContainsKey(id) ? _scores[id] : default;
+            score = default;
+            if (!_scores.ContainsKey(id))
+                return false;
+
+            score = _scores[id];
+            return true;
         }
 
         public bool TryUpdateScore(TKey id, TRating rating)
