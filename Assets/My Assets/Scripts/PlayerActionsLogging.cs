@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace NeuroDerby.Scripts
+namespace NeuroDerby
 {
     public class PlayerActionsLogging : MonoBehaviour
     {

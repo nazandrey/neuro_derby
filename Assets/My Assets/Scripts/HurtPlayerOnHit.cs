@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NeuroDerby.Scripts
+namespace NeuroDerby
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class HurtPlayerOnHit : MonoBehaviour

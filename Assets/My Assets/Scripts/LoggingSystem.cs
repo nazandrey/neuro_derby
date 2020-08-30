@@ -14,7 +14,7 @@ using System.IO;
 
 using UnityEngine;
 
-namespace NeuroDerby.Scripts
+namespace NeuroDerby
 {
     public class LoggingSystem : MonoBehaviour
     {

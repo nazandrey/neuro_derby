@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NeuroDerby.Scripts
+namespace NeuroDerby
 {
     public class PlayerHierarchy : MonoBehaviour
     {

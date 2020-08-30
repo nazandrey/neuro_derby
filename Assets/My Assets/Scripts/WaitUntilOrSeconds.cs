@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace NeuroDerby.Scripts
+namespace NeuroDerby
 {
     public class WaitUntilOrSeconds : CustomYieldInstruction
     {

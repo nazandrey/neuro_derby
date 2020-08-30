@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace NeuroDerby.Scripts
+namespace NeuroDerby
 {
     public class SceneRestarter : MonoBehaviour
     {

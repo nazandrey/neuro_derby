@@ -1,4 +1,4 @@
-﻿namespace NeuroDerby.Scripts
+﻿namespace NeuroDerby
 {
     interface IEvent<in TData> where TData : IEventData
     {

@@ -1,4 +1,4 @@
-﻿namespace NeuroDerby.Scripts
+﻿namespace NeuroDerby
 {
     public class DeathEvent : IEvent<EmptyEventData>
     {
