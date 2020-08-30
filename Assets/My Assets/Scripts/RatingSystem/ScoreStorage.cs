@@ -13,7 +13,7 @@ namespace Scripts.RatingSystem
 
         public bool TryAddScore(TKey id, TRating rating)
         {
-            if (_scores.ContainsKey(id))
+            if (id == null || _scores.ContainsKey(id))
                 return false;
 
             _scores.Add(id, rating);

@@ -61,6 +61,14 @@ namespace Tests.EditMode
         }
 
         [Test]
+        public void TryAddScore_IdNull_ScoreAdded()
+        {
+            var isAdded = _scoreStorage.TryAddScore(null, Score1);
+
+            Assert.IsFalse(isAdded);
+        }
+
+        [Test]
         public void TryAddScore_IdAlreadyAdded_StorageWithOneEntry()
         {
             var isAdded = _scoreStorage.TryAddScore(ScoreId, Score1);
