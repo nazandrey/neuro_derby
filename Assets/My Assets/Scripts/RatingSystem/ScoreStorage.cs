@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Scripts.RatingSystem
 {
-    public class ScoreStorage<TKey, TRating>
+    public class ScoreStorage<TKey, TScore>
     {
-        private Dictionary<TKey, TRating> _scores = new Dictionary<TKey, TRating>();
+        private Dictionary<TKey, TScore> _scores = new Dictionary<TKey, TScore>();
 
-        public IEnumerable<TRating> GetAllScores()
+        public IEnumerable<TScore> GetAllScores()
         {
             return _scores.Values;
         }
 
-        public bool TryAddScore(TKey id, TRating rating)
+        public bool TryAddScore(TKey id, TScore score)
         {
             if (id == null || _scores.ContainsKey(id))
                 return false;
@@ -24,11 +24,11 @@ namespace Scripts.RatingSystem
                 return false;
             }
 
-            _scores.Add(id, rating);
+            _scores.Add(id, score);
             return true;
         }
 
-        public bool TryGetScore(TKey id, out TRating score)
+        public bool TryGetScore(TKey id, out TScore score)
         {
             score = default;
             if (!_scores.ContainsKey(id))
@@ -38,12 +38,12 @@ namespace Scripts.RatingSystem
             return true;
         }
 
-        public bool TryUpdateScore(TKey id, TRating rating)
+        public bool TryUpdateScore(TKey id, TScore score)
         {
             if (!_scores.ContainsKey(id))            
                 return false;
 
-            _scores[id] = rating;
+            _scores[id] = score;
             return true;            
         }
     }
