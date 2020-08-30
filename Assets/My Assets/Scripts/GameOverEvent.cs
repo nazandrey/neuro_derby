@@ -1,9 +1,12 @@
-﻿public class GameOverEvent : IEvent<EmptyEventData>
+﻿namespace NeuroDerby.Scripts
 {
-    public EntryPoint EntryPoint { private get; set; }
-
-    public void Dispatch(EmptyEventData data = null)
+    public class GameOverEvent : IEvent<EmptyEventData>
     {
-        EntryPoint?.OnGameOver();
+        public EntryPoint EntryPoint { private get; set; }
+
+        public void Dispatch(EmptyEventData data = null)
+        {
+            EntryPoint?.OnGameOver();
+        }
     }
 }

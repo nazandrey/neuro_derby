@@ -1,4 +1,4 @@
-﻿namespace Scripts.Models
+﻿namespace NeuroDerby.Models
 {
     public class HealthBarModel
     {
@@ -8,7 +8,7 @@
             CurrentHealth = maxHealth;
         }
 
-        public float HealthPercentage => CurrentHealth/MaxHealth;
+        public float HealthPercentage => CurrentHealth / MaxHealth;
         public float MaxHealth { get; }
         public float CurrentHealth { get; private set; }
 

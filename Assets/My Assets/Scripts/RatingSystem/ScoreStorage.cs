@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace Scripts.RatingSystem
+namespace NeuroDerby.RatingSystem
 {
     public class ScoreStorage<TKey, TScore>
     {
@@ -40,11 +40,11 @@ namespace Scripts.RatingSystem
 
         public bool TryUpdateScore(TKey id, TScore score)
         {
-            if (!_scores.ContainsKey(id))            
+            if (!_scores.ContainsKey(id))
                 return false;
 
             _scores[id] = score;
-            return true;            
+            return true;
         }
     }
 }

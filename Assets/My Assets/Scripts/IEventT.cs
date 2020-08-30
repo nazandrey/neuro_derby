@@ -1,4 +1,7 @@
-﻿interface IEvent<in TData> where TData : IEventData
+﻿namespace NeuroDerby.Scripts
 {
-    void Dispatch(TData data = default(TData));
+    interface IEvent<in TData> where TData : IEventData
+    {
+        void Dispatch(TData data = default(TData));
+    }
 }

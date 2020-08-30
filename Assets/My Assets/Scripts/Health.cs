@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+namespace NeuroDerby.Scripts
 {
-    public float health = 10;
-    [Range(0f, 1f)]
-    public float armor = 0.5f;
-    public Text healthText;
-
-    public DeathEvent OnDeathEvent { get; private set; }
-
-    public bool IsDead => health < 0;
-
-    private void Awake()
+    public class Health : MonoBehaviour
     {
-        OnDeathEvent = new DeathEvent();
-    }
+        public float health = 10;
+        [Range(0f, 1f)]
+        public float armor = 0.5f;
+        public Text healthText;
 
-    private void Start()
-    {
-        SetUiHealth();
-    }
+        public DeathEvent OnDeathEvent { get; private set; }
 
-    public void Hurt(float damage)
-    {
-        health -= damage * (1f - armor);
-        SetUiHealth();
-        if (IsDead)
+        public bool IsDead => health < 0;
+
+        private void Awake()
         {
-            OnDeathEvent.Dispatch();
-            gameObject.SetActive(false);
+            OnDeathEvent = new DeathEvent();
         }
-    }
 
-    private void SetUiHealth()
-    {
-        healthText.text = health.ToString();
+        private void Start()
+        {
+            SetUiHealth();
+        }
+
+        public void Hurt(float damage)
+        {
+            health -= damage * (1f - armor);
+            SetUiHealth();
+            if (IsDead)
+            {
+                OnDeathEvent.Dispatch();
+                gameObject.SetActive(false);
+            }
+        }
+
+        private void SetUiHealth()
+        {
+            healthText.text = health.ToString();
+        }
     }
 }

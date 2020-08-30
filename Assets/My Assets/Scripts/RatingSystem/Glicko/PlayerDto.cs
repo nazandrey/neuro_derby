@@ -1,4 +1,4 @@
-﻿namespace Scripts.RatingSystem.Glicko
+﻿namespace NeuroDerby.RatingSystem.Glicko
 {
     public class PlayerDto
     {

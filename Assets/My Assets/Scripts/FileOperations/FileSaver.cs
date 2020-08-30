@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using Newtonsoft.Json;
-using System.IO;
 
-namespace Scripts.FileOperations
+namespace NeuroDerby.FileOperations
 {
     public class FileSaver
     {

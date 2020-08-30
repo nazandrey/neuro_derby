@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Combinatorics.Collections;
 using Glicko2;
-using Scripts.RatingSystem.Glicko;
+using NeuroDerby.RatingSystem.Glicko;
 using NUnit.Framework;
 
 namespace Tests.EditMode

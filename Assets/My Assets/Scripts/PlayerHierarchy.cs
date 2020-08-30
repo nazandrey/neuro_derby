@@ -1,19 +1,21 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerHierarchy : MonoBehaviour
+namespace NeuroDerby.Scripts
 {
-    [SerializeField] private Health health;
-    [SerializeField] private PlayerInputController inputController;
-    [SerializeField] private int playerNum;
-
-    public Health Health => health;
-    public PlayerInputController InputController => inputController;
-    public int PlayerNum => playerNum;
-
-    private void Awake()
+    public class PlayerHierarchy : MonoBehaviour
     {
-        if (playerNum > 1)
-            throw new System.Exception("More than two players is not supported");
+        [SerializeField] private Health health;
+        [SerializeField] private PlayerInputController inputController;
+        [SerializeField] private int playerNum;
+
+        public Health Health => health;
+        public PlayerInputController InputController => inputController;
+        public int PlayerNum => playerNum;
+
+        private void Awake()
+        {
+            if (playerNum > 1)
+                throw new System.Exception("More than two players is not supported");
+        }
     }
 }

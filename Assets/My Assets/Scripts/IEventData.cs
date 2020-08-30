@@ -1,3 +1,6 @@
-﻿public interface IEventData
+﻿namespace NeuroDerby.Scripts
 {
+    public interface IEventData
+    {
+    }
 }

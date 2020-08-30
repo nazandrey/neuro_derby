@@ -1,109 +1,113 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
-public class PlayerActionsLogging : MonoBehaviour
+namespace NeuroDerby.Scripts
 {
-    [SerializeField] private LoggingSystem logger;
-    [SerializeField] private List<PlayerHierarchy> playerHierarchies;
-
-    private Coroutine logCoroutine;
-    private Coroutine waitHeadersAndWriteCoroutine;
-    private List<MoveEventData> storedEventData = new List<MoveEventData>();
-
-    private bool areHeadersAdded = false;
-
-    private void Awake()
+    public class PlayerActionsLogging : MonoBehaviour
     {
-        if (logger == null)
-            Debug.Log("[Logging] Unable to set reference to Logging System.");
-    }
+        [SerializeField] private LoggingSystem logger;
+        [SerializeField] private List<PlayerHierarchy> playerHierarchies;
 
-    private void Start()
-    {
-        foreach (var playerHierarchy in playerHierarchies)
+        private Coroutine logCoroutine;
+        private Coroutine waitHeadersAndWriteCoroutine;
+        private List<MoveEventData> storedEventData = new List<MoveEventData>();
+
+        private bool areHeadersAdded = false;
+
+        private void Awake()
         {
-            playerHierarchy.InputController.MoveEvent.PlayerActionsLogging = this;
+            if (logger == null)
+                Debug.Log("[Logging] Unable to set reference to Logging System.");
         }
-    }
 
-    public void OnMoveEvent(MoveEventData moveEventData)
-    {
-        storedEventData.Add(moveEventData);
-
-        if (!areHeadersAdded && waitHeadersAndWriteCoroutine == null)
-            waitHeadersAndWriteCoroutine = StartCoroutine(WaitHeadersAndWrite());
-        else if (areHeadersAdded)
-            WriteLogs();
-    }
-
-    private IEnumerator WaitHeadersAndWrite()
-    {
-        yield return new WaitUntil(() => areHeadersAdded);
-        WriteLogs();
-    }
-
-    private void WriteLogs()
-    {
-        if (storedEventData.Count >= playerHierarchies.Count)
+        private void Start()
         {
-            var logs = new List<string>();
-            var collectedPlayerDataCount = 0;
-            foreach (var playerData in storedEventData.OrderBy(data => data.PlayerNum))
+            foreach (var playerHierarchy in playerHierarchies)
             {
-                var playerHealth = playerHierarchies[playerData.PlayerNum].Health;
-                logs.AddRange(new[]
+                playerHierarchy.InputController.MoveEvent.PlayerActionsLogging = this;
+            }
+        }
+
+        public void OnMoveEvent(MoveEventData moveEventData)
+        {
+            storedEventData.Add(moveEventData);
+
+            if (!areHeadersAdded && waitHeadersAndWriteCoroutine == null)
+                waitHeadersAndWriteCoroutine = StartCoroutine(WaitHeadersAndWrite());
+            else if (areHeadersAdded)
+                WriteLogs();
+        }
+
+        private IEnumerator WaitHeadersAndWrite()
+        {
+            yield return new WaitUntil(() => areHeadersAdded);
+            WriteLogs();
+        }
+
+        private void WriteLogs()
+        {
+            if (storedEventData.Count >= playerHierarchies.Count)
+            {
+                var logs = new List<string>();
+                var collectedPlayerDataCount = 0;
+                foreach (var playerData in storedEventData.OrderBy(data => data.PlayerNum))
                 {
+                    var playerHealth = playerHierarchies[playerData.PlayerNum].Health;
+                    logs.AddRange(new[]
+                    {
                     $"{playerData.X:F}", $"{playerData.Y:F}", playerHealth.healthText.text,
                     $"{playerData.HDirection}", $"{playerData.VDirection}"
                 });
-                collectedPlayerDataCount++;
-                if (collectedPlayerDataCount == playerHierarchies.Count)
-                    Log(logs.ToArray());
+                    collectedPlayerDataCount++;
+                    if (collectedPlayerDataCount == playerHierarchies.Count)
+                        Log(logs.ToArray());
+                }
+
+                storedEventData.Clear();
+            }
+        }
+
+        public void StartLog()
+        {
+            if (logger.activeLogging)
+                logCoroutine = StartCoroutine(LogActions());
+        }
+
+        public void StopLog()
+        {
+            StopCoroutine(logCoroutine);
+            logCoroutine = null;
+        }
+
+        private IEnumerator LogActions()
+        {
+            yield return new WaitUntilOrSeconds(() => logger.IsFileCreated, 5f);
+
+            if (!logger.IsFileCreated)
+            {
+                Debug.LogWarning("Log file was not created");
+                yield break;
             }
 
-            storedEventData.Clear();
+            var logs = new List<string>();
+            var playerNumForLog = 1;
+            foreach (var _ in playerHierarchies)
+            {
+                logs.AddRange(new[] { $"x{playerNumForLog}", $"y{playerNumForLog}", $"hp{playerNumForLog}", $"hdirection{playerNumForLog}", $"vdirection{playerNumForLog}" });
+                playerNumForLog++;
+            }
+
+            Log(logs.ToArray());
+
+            areHeadersAdded = true;
         }
-    }
 
-    public void StartLog()
-    {
-        if (logger.activeLogging)
-            logCoroutine = StartCoroutine(LogActions());
-    }
-
-    public void StopLog()
-    {
-        StopCoroutine(logCoroutine);
-        logCoroutine = null;
-    }
-
-    private IEnumerator LogActions()
-    {
-        yield return new WaitUntilOrSeconds(() => logger.IsFileCreated, 5f);
-
-        if (!logger.IsFileCreated)
+        private void Log(params string[] args)
         {
-            Debug.LogWarning("Log file was not created");
-            yield break;
+            logger.writeMessageWithTimestampToLog(string.Join(";", args));
         }
-
-        var logs = new List<string>();
-        var playerNumForLog = 1;
-        foreach (var _ in playerHierarchies)
-        {
-            logs.AddRange(new[]{$"x{playerNumForLog}",$"y{playerNumForLog}",$"hp{playerNumForLog}",$"hdirection{playerNumForLog}",$"vdirection{playerNumForLog}"});
-            playerNumForLog++;
-        }
-        
-        Log(logs.ToArray());
-
-        areHeadersAdded = true;
-    }
-
-    private void Log(params string[] args)
-    {
-        logger.writeMessageWithTimestampToLog(string.Join(";", args));
     }
 }

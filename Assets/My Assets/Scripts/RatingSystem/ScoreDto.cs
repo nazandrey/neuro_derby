@@ -1,4 +1,4 @@
-﻿namespace Scripts.RatingSystem
+﻿namespace NeuroDerby.RatingSystem
 {
     public class ScoreDto
     {

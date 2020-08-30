@@ -1,3 +1,6 @@
-﻿public sealed class EmptyEventData : IEventData
+﻿namespace NeuroDerby.Scripts
 {
+    public sealed class EmptyEventData : IEventData
+    {
+    }
 }

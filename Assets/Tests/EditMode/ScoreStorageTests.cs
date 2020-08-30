@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
-using Scripts.RatingSystem;
-using System.Linq;
+﻿using System.Linq;
+using NeuroDerby.RatingSystem;
+using NUnit.Framework;
 
 namespace Tests.EditMode
 {

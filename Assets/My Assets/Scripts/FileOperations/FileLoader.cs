@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.IO;
+﻿using System.IO;
+using Newtonsoft.Json;
 
-namespace Scripts.FileOperations
+namespace NeuroDerby.FileOperations
 {
     public class FileLoader
     {

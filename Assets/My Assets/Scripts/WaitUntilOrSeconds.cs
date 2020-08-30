@@ -1,25 +1,29 @@
 ﻿using System;
+
 using UnityEngine;
 
-public class WaitUntilOrSeconds : CustomYieldInstruction
+namespace NeuroDerby.Scripts
 {
-    private float waitedTime;
-    private float timeToWait;
-    private Func<bool> condition;
-
-    public WaitUntilOrSeconds(Func<bool> condition, float timeToWait)
+    public class WaitUntilOrSeconds : CustomYieldInstruction
     {
-        waitedTime = 0;
-        this.timeToWait = timeToWait;
-        this.condition = condition;
-    }
+        private float waitedTime;
+        private float timeToWait;
+        private Func<bool> condition;
 
-    public override bool keepWaiting
-    {
-        get
+        public WaitUntilOrSeconds(Func<bool> condition, float timeToWait)
         {
-            waitedTime += Time.deltaTime;
-            return !condition() && waitedTime < timeToWait;
+            waitedTime = 0;
+            this.timeToWait = timeToWait;
+            this.condition = condition;
+        }
+
+        public override bool keepWaiting
+        {
+            get
+            {
+                waitedTime += Time.deltaTime;
+                return !condition() && waitedTime < timeToWait;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Scripts
+﻿namespace NeuroDerby.Scripts
 {
     public enum SceneName
     {

@@ -2,13 +2,16 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SceneRestarter : MonoBehaviour
+namespace NeuroDerby.Scripts
 {
-    [SerializeField]
-    private Button restartButton;
-
-    private void Start()
+    public class SceneRestarter : MonoBehaviour
     {
-        restartButton?.onClick.AddListener(() => SceneManager.LoadScene(0));
+        [SerializeField]
+        private Button restartButton;
+
+        private void Start()
+        {
+            restartButton?.onClick.AddListener(() => SceneManager.LoadScene(0));
+        }
     }
 }

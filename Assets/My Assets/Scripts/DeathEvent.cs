@@ -1,9 +1,12 @@
-﻿public class DeathEvent : IEvent<EmptyEventData>
+﻿namespace NeuroDerby.Scripts
 {
-    public GameOverHandler GameOverHandler { set; private get; }
-
-    public void Dispatch(EmptyEventData data = null)
+    public class DeathEvent : IEvent<EmptyEventData>
     {
-        GameOverHandler?.OnDeathEvent();
+        public GameOverHandler GameOverHandler { set; private get; }
+
+        public void Dispatch(EmptyEventData data = null)
+        {
+            GameOverHandler?.OnDeathEvent();
+        }
     }
 }

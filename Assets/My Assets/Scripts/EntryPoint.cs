@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(PlayerActionsLogging))]
-[RequireComponent(typeof(GameOverHandler))]
-public class EntryPoint : MonoBehaviour
+namespace NeuroDerby.Scripts
 {
-    private PlayerActionsLogging playerActionsLogger;
-    private GameOverHandler gameOverHandler;
-
-    private void Awake()
+    [RequireComponent(typeof(PlayerActionsLogging))]
+    [RequireComponent(typeof(GameOverHandler))]
+    public class EntryPoint : MonoBehaviour
     {
-        playerActionsLogger = GetComponent<PlayerActionsLogging>();
-        gameOverHandler = GetComponent<GameOverHandler>();
-    }
+        private PlayerActionsLogging playerActionsLogger;
+        private GameOverHandler gameOverHandler;
 
-    private void Start()
-    {
-        playerActionsLogger.StartLog();
-        gameOverHandler.GameOverEvent.EntryPoint = this;
-    }
+        private void Awake()
+        {
+            playerActionsLogger = GetComponent<PlayerActionsLogging>();
+            gameOverHandler = GetComponent<GameOverHandler>();
+        }
 
-    public void OnGameOver()
-    {
-        playerActionsLogger.StopLog();
+        private void Start()
+        {
+            playerActionsLogger.StartLog();
+            gameOverHandler.GameOverEvent.EntryPoint = this;
+        }
+
+        public void OnGameOver()
+        {
+            playerActionsLogger.StopLog();
+        }
     }
 }

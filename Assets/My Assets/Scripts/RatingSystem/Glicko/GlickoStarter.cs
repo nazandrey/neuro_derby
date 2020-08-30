@@ -3,10 +3,10 @@ using System.Linq;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Glicko2;
-using Scripts.FileOperations;
+using NeuroDerby.FileOperations;
 using UnityEngine;
 
-namespace Scripts.RatingSystem.Glicko
+namespace NeuroDerby.RatingSystem.Glicko
 {
     public class GlickoStarter : MonoBehaviour
     {

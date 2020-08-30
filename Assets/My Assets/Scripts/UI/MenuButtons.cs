@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using NeuroDerby.Core;
+using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-namespace Scripts.UI
+namespace NeuroDerby.UI
 {
     public class MenuButtons : MonoBehaviour
     {

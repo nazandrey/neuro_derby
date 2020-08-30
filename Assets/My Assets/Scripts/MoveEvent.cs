@@ -1,9 +1,12 @@
-﻿public class MoveEvent : IEvent<MoveEventData>
+﻿namespace NeuroDerby.Scripts
 {
-    public PlayerActionsLogging PlayerActionsLogging { set; private get; }
-
-    public void Dispatch(MoveEventData data)
+    public class MoveEvent : IEvent<MoveEventData>
     {
-        PlayerActionsLogging?.OnMoveEvent(data);
+        public PlayerActionsLogging PlayerActionsLogging { set; private get; }
+
+        public void Dispatch(MoveEventData data)
+        {
+            PlayerActionsLogging?.OnMoveEvent(data);
+        }
     }
 }
