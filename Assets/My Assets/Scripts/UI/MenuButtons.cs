@@ -12,6 +12,9 @@ namespace NeuroDerby.UI
         [SerializeField]
         private Button ScoreTableButton;
 
+        [SerializeField]
+        private MenuChanger menuChanger;
+
         private void Awake()
         {
             StartButton.onClick.AddListener(OnStartButtonClick);
@@ -26,17 +29,12 @@ namespace NeuroDerby.UI
 
         private void OnStartButtonClick()
         {
-            LoadScene(SceneName.Game);
+            menuChanger.Open(MenuForm.ChooseNameForm);
         }
 
         private void OnScoreTableButtonClick()
         {
-            LoadScene(SceneName.ScoreTable);
-        }
-
-        private void LoadScene(SceneName sceneName)
-        {
-            SceneManager.LoadScene(sceneName.ToString());
+            SceneHelpers.LoadScene(SceneName.ScoreTable);
         }
     }
 }
