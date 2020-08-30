@@ -28,7 +28,7 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void TryAddScore_IdNotAdded_StorageWithOneEntry()
+        public void TryAddScore_IdNotAdded_ScoreAdded()
         {
             var isAdded = _scoreStorage.TryAddScore(ScoreId, Score1);
 
