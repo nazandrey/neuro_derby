@@ -51,13 +51,11 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void TryAddScore_IdEmptyString_ScoreAdded()
+        public void TryAddScore_IdEmptyString_ScoreNotAdded()
         {
             var isAdded = _scoreStorage.TryAddScore(string.Empty, Score1);
 
-            Assert.IsTrue(isAdded);
-            _scoreStorage.TryGetScore(string.Empty, out var scoreFromStorage);
-            Assert.AreEqual(Score1, scoreFromStorage);
+            Assert.IsFalse(isAdded);
         }
 
         [Test]

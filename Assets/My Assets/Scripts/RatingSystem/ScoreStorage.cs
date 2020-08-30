@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using UnityEngine;
+
 namespace Scripts.RatingSystem
 {
     public class ScoreStorage<TKey, TRating>
@@ -15,6 +17,12 @@ namespace Scripts.RatingSystem
         {
             if (id == null || _scores.ContainsKey(id))
                 return false;
+
+            if (id is string strId && strId == string.Empty)
+            {
+                Debug.LogWarning($"{nameof(TryAddScore)} {nameof(id)} cannot be empty string");
+                return false;
+            }
 
             _scores.Add(id, rating);
             return true;
