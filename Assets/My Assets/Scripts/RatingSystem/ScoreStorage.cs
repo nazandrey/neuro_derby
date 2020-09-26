@@ -30,12 +30,7 @@ namespace NeuroDerby.RatingSystem
 
         public bool TryGetScore(TKey id, out TScore score)
         {
-            score = default;
-            if (!_scores.ContainsKey(id))
-                return false;
-
-            score = _scores[id];
-            return true;
+            return _scores.TryGetValue(id, out score);
         }
 
         public bool TryUpdateScore(TKey id, TScore score)
