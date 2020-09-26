@@ -30,8 +30,8 @@ namespace Tests.EditMode
         [Test]
         public void GetAllScores_ScoresAdded_NonEmptyStorage()
         {
-            _scoreStorage.TryAddScore(Score1Id, Score1);
-            _scoreStorage.TryAddScore(Score2Id, Score2);
+            TryAddScoreById(Score1Id, Score1);
+            TryAddScoreById(Score2Id, Score2);
 
             var scores = _scoreStorage.GetAllScores();
             CollectionAssert.IsNotEmpty(scores);
@@ -43,25 +43,18 @@ namespace Tests.EditMode
         [Test]
         public void TryAddScore_IdNotAdded_ScoreAdded()
         {
-            var isAdded = _scoreStorage.TryAddScore(ScoreId, Score1);
+            var isAdded = TryAddScoreById(ScoreId, Score1);
 
             Assert.IsTrue(isAdded);
             var scoreFromStorage = GetScoreById(ScoreId);
             Assert.AreEqual(Score1, scoreFromStorage);
         }
 
-        [Test]
-        public void TryAddScore_IdEmptyString_ScoreNotAdded()
+        [TestCase("")]
+        [TestCase(null)]
+        public void TryAddScore_InvalidId_ScoreNotAdded(string scoreId)
         {
-            var isAdded = _scoreStorage.TryAddScore(string.Empty, Score1);
-
-            Assert.IsFalse(isAdded);
-        }
-
-        [Test]
-        public void TryAddScore_IdNull_ScoreAdded()
-        {
-            var isAdded = _scoreStorage.TryAddScore(null, Score1);
+            var isAdded = TryAddScoreById(scoreId, Score1);
 
             Assert.IsFalse(isAdded);
         }
@@ -69,8 +62,8 @@ namespace Tests.EditMode
         [Test]
         public void TryAddScore_IdAlreadyAdded_StorageWithOneEntry()
         {
-            var isAdded = _scoreStorage.TryAddScore(ScoreId, Score1);
-            var isAddedAgain = _scoreStorage.TryAddScore(ScoreId, Score2);
+            var isAdded = TryAddScoreById(ScoreId, Score1);
+            var isAddedAgain = TryAddScoreById(ScoreId, Score2);
 
             Assert.IsTrue(isAdded);
             Assert.IsFalse(isAddedAgain);
@@ -126,10 +119,15 @@ namespace Tests.EditMode
             Assert.IsFalse(isUpdated);
         }
 
-        private double GetScoreById(string scoreId, bool assertIsGotten = true)
+        private bool TryAddScoreById(string scoreId, double score)
+        {
+            return _scoreStorage.TryAddScore(scoreId, score);
+        }
+
+        private double GetScoreById(string scoreId, bool shouldBeGotten = true)
         {
             var isGotten = _scoreStorage.TryGetScore(scoreId, out var scoreFromStorage);
-            Assert.IsTrue(assertIsGotten ? isGotten : !isGotten);
+            Assert.IsTrue(shouldBeGotten ? isGotten : !isGotten);
             return scoreFromStorage;
         }
     }
