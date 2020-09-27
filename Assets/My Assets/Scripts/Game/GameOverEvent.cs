@@ -1,4 +1,4 @@
-﻿namespace NeuroDerby
+﻿namespace NeuroDerby.Game
 {
     public class GameOverEvent : IEvent<EmptyEventData>
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NeuroDerby
+namespace NeuroDerby.Game
 {
     [RequireComponent(typeof(PlayerActionsLogging))]
     [RequireComponent(typeof(GameOverHandler))]

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace NeuroDerby
+namespace NeuroDerby.Game
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerInputController : MonoBehaviour
