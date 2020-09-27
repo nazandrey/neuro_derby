@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NeuroDerby.Core
+namespace NeuroDerby
 {
     public static class GameState
     {
