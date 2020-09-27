@@ -6,6 +6,9 @@ namespace NeuroDerby.FileOperations
 {
     public class FileSaver
     {
+        #if !DEBUG
+        #error Check save paths for FileSaver usages
+        #endif
         public static void Save<TSource, TDestination>(string filePath, IConfigurationProvider config, TSource source)
         {
             var mapper = config.CreateMapper();

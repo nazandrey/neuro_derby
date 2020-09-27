@@ -10,6 +10,7 @@
  * Twitter: @nicoversity
  */
 
+using System;
 using System.IO;
 
 using UnityEngine;
@@ -42,6 +43,9 @@ namespace NeuroDerby
         /// </summary>
         void Start()
         {
+            #if !DEBUG
+            #error Check save paths for logs
+            #endif
             if (this.activeLogging)
             {
                 // check if directory exists (and create it if not)
