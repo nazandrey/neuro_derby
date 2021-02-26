@@ -6,7 +6,8 @@
 
         public void Dispatch(EmptyEventData data = null)
         {
-            GameOverHandler?.OnDeathEvent();
+            if (GameOverHandler)
+                GameOverHandler.OnDeathEvent();
         }
     }
 }

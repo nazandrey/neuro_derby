@@ -6,7 +6,8 @@
 
         public void Dispatch(MoveEventData data)
         {
-            PlayerActionsLogging?.OnMoveEvent(data);
+            if (PlayerActionsLogging)
+                PlayerActionsLogging.OnMoveEvent(data);
         }
     }
 }
