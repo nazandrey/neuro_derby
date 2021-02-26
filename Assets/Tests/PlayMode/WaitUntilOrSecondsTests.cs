@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using NeuroDerby;
+using NeuroDerby.Core;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
