@@ -5,7 +5,6 @@ namespace NeuroDerby.Game
 {
     public class GameOverHandler : MonoBehaviour
     {
-
         public Health player1Health;
         public Health player2Health;
         public Text playerWonText;
@@ -27,23 +26,18 @@ namespace NeuroDerby.Game
         public void OnDeathEvent()
         {
             if (player1Health.IsDead && player2Health.IsDead)
-            {
-                HandleGameOver("DRAW!");
-            }
+                HandleGameOver(true);
             else if (player2Health.IsDead)
-            {
-                HandleGameOver("Player 1 WON!");
-            }
+                HandleGameOver(false, 0);
             else if (player1Health.IsDead)
-            {
-                HandleGameOver("Player 2 WON!");
-            }
+                HandleGameOver(false, 1);
         }
 
-        private void HandleGameOver(string gameOverText)
+        private void HandleGameOver(bool isDraw, int winnerNum = 0)
         {
+            var gameOverText = isDraw ? "DRAW!" : $"Player {winnerNum + 1} WON!";
             ShowPlayerGameOverText(gameOverText);
-            GameOverEvent.Dispatch();
+            GameOverEvent.Dispatch(new GameOverEventData(winnerNum));
         }
 
         private void ShowPlayerGameOverText(string text)
