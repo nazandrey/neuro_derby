@@ -7,24 +7,24 @@ namespace NeuroDerby.UI
     public class MenuButtons : MonoBehaviour
     {
         [SerializeField]
-        private Button StartButton;
+        private Button startButton;
 
         [SerializeField]
-        private Button ScoreTableButton;
+        private Button scoreTableButton;
 
         [SerializeField]
         private MenuChanger menuChanger;
 
         private void Awake()
         {
-            StartButton.onClick.AddListener(OnStartButtonClick);
-            ScoreTableButton.onClick.AddListener(OnScoreTableButtonClick);
+            startButton.onClick.AddListener(OnStartButtonClick);
+            scoreTableButton.onClick.AddListener(OnScoreTableButtonClick);
         }
 
         private void OnDestroy()
         {
-            StartButton.onClick.RemoveListener(OnStartButtonClick);
-            ScoreTableButton.onClick.RemoveListener(OnScoreTableButtonClick);
+            startButton.onClick.RemoveListener(OnStartButtonClick);
+            scoreTableButton.onClick.RemoveListener(OnScoreTableButtonClick);
         }
 
         private void OnStartButtonClick()

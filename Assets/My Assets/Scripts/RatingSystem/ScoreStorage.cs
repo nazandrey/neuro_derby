@@ -4,13 +4,18 @@ using UnityEngine;
 
 namespace NeuroDerby.RatingSystem
 {
-    public class ScoreStorage<TKey, TScore>
+    public class ScoreStorage<TKey, TScore> : IScoreStorage<TKey, TScore>
     {
         private Dictionary<TKey, TScore> _scores = new Dictionary<TKey, TScore>();
 
         public IEnumerable<TScore> GetAllScores()
         {
             return _scores.Values;
+        }
+        
+        public IEnumerable<KeyValuePair<TKey, TScore>> GetAllScoresWithId()
+        {
+            return _scores;
         }
 
         public bool TryAddScore(TKey id, TScore score)
