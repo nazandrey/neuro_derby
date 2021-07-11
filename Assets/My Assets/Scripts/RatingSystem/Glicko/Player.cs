@@ -1,8 +1,9 @@
-﻿using Glicko2;
+﻿using System;
+using Glicko2;
 
 namespace NeuroDerby.RatingSystem.Glicko
 {
-    public class Player
+    public class Player : IComparable<Player>
     {
         public Player(Rating rating, string playerName)
         {
@@ -21,5 +22,13 @@ namespace NeuroDerby.RatingSystem.Glicko
         public double Rating => RatingInfo.GetRating();
         public double Deviation => RatingInfo.GetRatingDeviation();
         public double Volatility => RatingInfo.GetVolatility();
+
+        public int CompareTo(Player other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+
+            return Rating.CompareTo(other.Rating);
+        }
     }
 }

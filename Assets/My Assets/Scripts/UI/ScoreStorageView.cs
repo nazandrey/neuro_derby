@@ -11,7 +11,7 @@ namespace NeuroDerby.UI
         [SerializeField] 
         private PlayerScoreView playerScoreViewPrefab;
         
-        private IScoreStorage<string, double> _playerScoreStorage;
+        private IScoreStorage<string, Player> _playerScoreStorage;
 
         private void Awake()
         {
@@ -26,7 +26,7 @@ namespace NeuroDerby.UI
             foreach (var idAndScore in idAndScores)
             {
                 var playerScoreView = Instantiate(playerScoreViewPrefab, transform, false);
-                playerScoreView.Init(place, idAndScore.Key, idAndScore.Value);
+                playerScoreView.Init(place, idAndScore.Key, idAndScore.Value.Rating);
                 place++;
             }
         }

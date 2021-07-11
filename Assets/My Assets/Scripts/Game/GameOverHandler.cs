@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NeuroDerby.Game.EventDatas;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace NeuroDerby.Game
@@ -28,16 +29,16 @@ namespace NeuroDerby.Game
             if (player1Health.IsDead && player2Health.IsDead)
                 HandleGameOver(true);
             else if (player2Health.IsDead)
-                HandleGameOver(false, 0);
+                HandleGameOver(false, 0, 1);
             else if (player1Health.IsDead)
-                HandleGameOver(false, 1);
+                HandleGameOver(false, 1, 0);
         }
 
-        private void HandleGameOver(bool isDraw, int winnerNum = 0)
+        private void HandleGameOver(bool isDraw, int winnerNum = 0, int loserNum = default)
         {
             var gameOverText = isDraw ? "DRAW!" : $"Player {winnerNum + 1} WON!";
             ShowPlayerGameOverText(gameOverText);
-            GameOverEvent.Dispatch(new GameOverEventData(winnerNum));
+            GameOverEvent.Dispatch(new GameOverEventData(isDraw, winnerNum, loserNum));
         }
 
         private void ShowPlayerGameOverText(string text)

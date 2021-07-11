@@ -1,12 +1,16 @@
-﻿namespace NeuroDerby.Game
+﻿namespace NeuroDerby.Game.EventDatas
 {
     public class GameOverEventData : IEventData
     {
-        public GameOverEventData(int winnerPlayerNum)
+        public GameOverEventData(bool isDraw, int winnerPlayerNum, int loserPlayerNum)
         {
+            IsDraw = isDraw;
             WinnerPlayerNum = winnerPlayerNum;
+            LoserPlayerNum = loserPlayerNum;
         }
 
-        public int WinnerPlayerNum { get; private set; }
+        public bool IsDraw { get; }
+        public int WinnerPlayerNum { get; }
+        public int LoserPlayerNum { get; }
     }
 }

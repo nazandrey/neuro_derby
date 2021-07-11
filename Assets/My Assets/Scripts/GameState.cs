@@ -15,5 +15,13 @@ namespace NeuroDerby
         {
             CurrentPlayerNames.Add(num, name);
         }
+        
+        public static string GetPlayerNameByNum(int num)
+        {
+            if (CurrentPlayerNames.TryGetValue(num, out var name))
+                return name;
+            else
+                return null;
+        }
     }
 }
