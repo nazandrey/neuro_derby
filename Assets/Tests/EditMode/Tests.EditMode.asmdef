@@ -1,10 +1,13 @@
 {
     "name": "Tests.EditMode",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "MyAssets",
-        "Glicko"
+        "Glicko",
+        "Zenject-TestFramework",
+        "Zenject"
     ],
     "includePlatforms": [
         "Editor"
@@ -14,7 +17,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll",
-        "Combinatorics.dll"
+        "Combinatorics.dll",
+        "Zenject-usage.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
