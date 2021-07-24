@@ -10,15 +10,15 @@ namespace NeuroDerby.Players
 {
     public class PlayersSaver<TPlayerId> : IPlayersSaver
     {
-        private const string PlayersFilePath = @"data.json";
-        
         private IScoreStorage<TPlayerId, Player> _scoreStorage;
+        private PathConfig _pathConfig;
 
-        public PlayersSaver(IScoreStorage<TPlayerId, Player> scoreStorage)
+        public PlayersSaver(IScoreStorage<TPlayerId, Player> scoreStorage, PathConfig pathConfig)
         {
+            _pathConfig = pathConfig;
             _scoreStorage = scoreStorage;
         }
-        
+
         private static readonly MapperConfiguration _mapperConfig = new MapperConfiguration(cfg =>
         {
             cfg.AddCollectionMappers();
@@ -29,7 +29,7 @@ namespace NeuroDerby.Players
         public void Save()
         {
             var allPlayers = _scoreStorage.GetAllScores();
-            FileSaver.Save<List<Player>, List<PlayerDto>>(PlayersFilePath, _mapperConfig, allPlayers.ToList());
+            FileSaver.Save<List<Player>, List<PlayerDto>>(_pathConfig.PersistentPlayerDataPathPostfix, _mapperConfig, allPlayers.ToList());
         }
     }
 }
