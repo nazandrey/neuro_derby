@@ -5,6 +5,7 @@ using AutoMapper.EquivalencyExpression;
 using NeuroDerby.FileOperations;
 using NeuroDerby.RatingSystem;
 using NeuroDerby.RatingSystem.Glicko;
+using UnityEngine;
 
 namespace NeuroDerby.Players
 {
@@ -29,7 +30,7 @@ namespace NeuroDerby.Players
         public void Save()
         {
             var allPlayers = _scoreStorage.GetAllScores();
-            FileSaver.Save<List<Player>, List<PlayerDto>>(_pathConfig.PersistentPlayerDataPathPostfix, _mapperConfig, allPlayers.ToList());
+            FileSaver.Save<List<Player>, List<PlayerDto>>(Application.persistentDataPath + _pathConfig.PersistentPlayerDataPathPostfix, _mapperConfig, allPlayers.ToList());
         }
     }
 }
