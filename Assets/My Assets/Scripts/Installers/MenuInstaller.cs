@@ -2,7 +2,7 @@ using NeuroDerby.MenuLogic;
 using NeuroDerby.Players;
 using Zenject;
 
-namespace NeuroDerby.Core
+namespace NeuroDerby.Installers
 {
     public class MenuInstaller : MonoInstaller
     {

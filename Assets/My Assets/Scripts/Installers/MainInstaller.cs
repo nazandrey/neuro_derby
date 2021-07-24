@@ -5,7 +5,7 @@ using NeuroDerby.RatingSystem;
 using NeuroDerby.RatingSystem.Glicko;
 using Zenject;
 
-namespace NeuroDerby.Core
+namespace NeuroDerby.Installers
 {
     public class MainInstaller : MonoInstaller
     {
