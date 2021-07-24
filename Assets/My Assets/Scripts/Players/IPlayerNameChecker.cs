@@ -3,5 +3,6 @@
     public interface IPlayerNameChecker
     {
         bool Check(string playerName, out string checkedPlayerName);
+        string GetTooltipTextForInvalidName();
     }
 }

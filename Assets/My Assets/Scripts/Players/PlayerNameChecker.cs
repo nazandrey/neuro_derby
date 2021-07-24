@@ -2,7 +2,12 @@
 {
     public class PlayerNameChecker : IPlayerNameChecker
     {
-        private const int NameCharsLimit = 30;
+        private const int NameCharsLimit = 25;
+
+        public string GetTooltipTextForInvalidName()
+        {
+            return $"Name should be not empty and contain less or equal {NameCharsLimit} characters";
+        }
         
         public bool Check(string playerName, out string checkedPlayerName)
         {
