@@ -5,10 +5,10 @@ namespace NeuroDerby.RatingSystem.Glicko
 {
     public static class GlickoScoreUpdaterBuilder
     {
-        public static GlickoScoreUpdater<string> Build(IScoreStorage<string, Player> scoreStorage)
+        public static GlickoScoreUpdater Build(IScoreStorage<string, Player> scoreStorage)
         {
-            return new GlickoScoreUpdater<string>(scoreStorage, new PlayerNumToNameConverter(),
-                new PlayersSaver<string>(scoreStorage), new RatingCalculator());
+            return new GlickoScoreUpdater(scoreStorage, new PlayerNumToNameConverter(), 
+                new PlayersSaver<string>(scoreStorage), new PlayerNameChecker(), new RatingCalculator());
         } 
     }
 }

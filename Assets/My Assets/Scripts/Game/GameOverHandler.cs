@@ -1,6 +1,7 @@
 ﻿using NeuroDerby.Game.EventDatas;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace NeuroDerby.Game
 {
@@ -13,9 +14,10 @@ namespace NeuroDerby.Game
 
         public GameOverEvent GameOverEvent { get; private set; }
 
-        private void Awake()
+        [Inject]
+        public void Construct(GameOverEvent.Factory gameOverEventFactory)
         {
-            GameOverEvent = new GameOverEvent();
+            GameOverEvent = gameOverEventFactory.Create();
         }
 
         private void Start()

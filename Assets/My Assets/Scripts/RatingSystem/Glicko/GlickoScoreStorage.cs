@@ -13,7 +13,7 @@ namespace NeuroDerby.RatingSystem.Glicko
         private RatingCalculator _calculator = new RatingCalculator();
         private List<Player> _players;
         private ScoreStorage<string, Player> _playerScoreStorage = new ScoreStorage<string, Player>();
-        private GlickoScoreUpdater<string> _scoreUpdater;
+        private GlickoScoreUpdater _scoreUpdater;
 
         protected override void Awake()
         {
