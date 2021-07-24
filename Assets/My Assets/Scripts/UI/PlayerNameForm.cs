@@ -28,6 +28,8 @@ namespace NeuroDerby.UI
         private Text validationErrorToolipText;
 
         private IPlayerNameChecker _playerNameChecker;
+        
+        public bool IsValid { get; private set; }
 
         [Inject]
         public void Construct(IPlayerNameChecker playerNameChecker)
@@ -43,11 +45,11 @@ namespace NeuroDerby.UI
 
         private void OnValueChanged(string inputName)
         {
-            var isInputNameValid = _playerNameChecker.Check(inputName, out var checkedPlayerName)
+            IsValid = _playerNameChecker.Check(inputName, out var checkedPlayerName)
                 && IsTrimmedInputTextValid(inputName, checkedPlayerName);
             
-            playerBg.color = isInputNameValid ? Color.green : Color.red;
-            validationErrorToolip.SetActive(!isInputNameValid);
+            playerBg.color = IsValid ? Color.green : Color.red;
+            validationErrorToolip.SetActive(!IsValid);
         }
 
         private static bool IsTrimmedInputTextValid(string inputName, string checkedPlayerName)

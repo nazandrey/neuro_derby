@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NeuroDerby.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,13 +27,15 @@ namespace NeuroDerby.UI
 
         private void StartGame()
         {
+            if (!playerNameForms.All(x => x.IsValid))
+                return;
+            
             GameState.ClearPlayerNames();
             foreach (var playerNameForm in playerNameForms)
             {
                 var playerNameInputDto = playerNameForm.GetCurrentValues();
                 GameState.AddPlayer(playerNameInputDto.Num, playerNameInputDto.Name);
             }
-
             SceneHelpers.LoadScene(SceneName.Game);
         }
     }
