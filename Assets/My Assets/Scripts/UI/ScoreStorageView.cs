@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NeuroDerby.RatingSystem;
 using NeuroDerby.RatingSystem.Glicko;
 using UnityEngine;
+using Zenject;
 
 namespace NeuroDerby.UI
 {
@@ -13,9 +13,10 @@ namespace NeuroDerby.UI
         
         private IScoreStorage<string, Player> _playerScoreStorage;
 
-        private void Awake()
+        [Inject]
+        public void Construct(IScoreStorage<string, Player> playerScoreStorage)
         {
-            _playerScoreStorage = GlickoScoreStorage.Instance;
+            _playerScoreStorage = playerScoreStorage;
         }
 
         private void Start()
