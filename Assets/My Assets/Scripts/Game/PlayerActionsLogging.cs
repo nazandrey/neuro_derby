@@ -78,8 +78,11 @@ namespace NeuroDerby.Game
 
         public void StopLog()
         {
-            StopCoroutine(logCoroutine);
-            logCoroutine = null;
+            if (logCoroutine != null)
+            {
+                StopCoroutine(logCoroutine);
+                logCoroutine = null;
+            }
         }
 
         private IEnumerator LogActions()
