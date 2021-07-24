@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
@@ -30,7 +31,7 @@ namespace NeuroDerby.Players
         public void Save()
         {
             var allPlayers = _scoreStorage.GetAllScores();
-            FileSaver.Save<List<Player>, List<PlayerDto>>(Application.persistentDataPath + _pathConfig.PersistentPlayerDataPathPostfix, _mapperConfig, allPlayers.ToList());
+            FileSaver.Save<List<Player>, List<PlayerDto>>(Path.Combine(Application.persistentDataPath, _pathConfig.PersistentPlayerDataPathPostfix), _mapperConfig, allPlayers.ToList());
         }
     }
 }

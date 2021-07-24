@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using NeuroDerby.FileOperations;
 using NeuroDerby.RatingSystem.Glicko;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace NeuroDerby.Players
         
         public List<PlayerDto> Load()
         {
-            return FileLoader.Load<List<PlayerDto>>(Application.persistentDataPath + _pathConfig.PersistentPlayerDataPathPostfix);
+            return FileLoader.Load<List<PlayerDto>>(Path.Combine(Application.persistentDataPath, _pathConfig.PersistentPlayerDataPathPostfix));
         }
     }
 }
