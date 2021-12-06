@@ -44,7 +44,7 @@ namespace NeuroDerby.Game
         void Start()
         {
             #if !DEBUG
-            #error Check save paths for logs
+            #warning Check save paths for logs if needed
             #endif
             if (this.activeLogging)
             {
