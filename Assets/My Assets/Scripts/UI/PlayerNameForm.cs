@@ -2,6 +2,7 @@
 using NeuroDerby.RatingSystem;
 using NeuroDerby.RatingSystem.Glicko;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -40,14 +41,18 @@ namespace NeuroDerby.UI
 
         private IPlayerNameChecker _playerNameChecker;
         private IScoreStorage<string, Player> _scoreStorage;
+        private IPlayerNameCleaner _playerNameCleaner;
 
         public bool IsValid { get; private set; }
 
         [Inject]
-        public void Construct(IPlayerNameChecker playerNameChecker, IScoreStorage<string, Player> scoreStorage)
+        public void Construct(IPlayerNameChecker playerNameChecker, 
+            IScoreStorage<string, Player> scoreStorage,
+            IPlayerNameCleaner playerNameCleaner)
         {
             _playerNameChecker = playerNameChecker;
             _scoreStorage = scoreStorage;
+            _playerNameCleaner = playerNameCleaner;
         }
         
         private void Awake()
@@ -56,21 +61,21 @@ namespace NeuroDerby.UI
             playerInput.onValueChanged.AddListener(OnValueChanged);
         }
 
+        private void OnDestroy()
+        {
+            playerInput.onValueChanged.RemoveListener(OnValueChanged);
+        }
+
         private void OnValueChanged(string inputName)
         {
-            IsValid = _playerNameChecker.Check(inputName, out var checkedPlayerName)
-                && IsTrimmedInputTextValid(inputName, checkedPlayerName);
+            IsValid = _playerNameChecker.Check(inputName);
             
             playerBg.color = IsValid ? colorForValid : colorForInavlid;
             validationErrorToolip.SetActive(!IsValid);
 
-            var playerNameExits = _scoreStorage.TryGetScore(checkedPlayerName, out _);
-            playerNameExistsWarning.SetActive(playerNameExits);
-        }
-
-        private static bool IsTrimmedInputTextValid(string inputName, string checkedPlayerName)
-        {
-            return inputName.Trim() == checkedPlayerName;
+            var clearedPlayerName = _playerNameCleaner.Clean(inputName);
+            var playerNameExists = _scoreStorage.TryGetScore(clearedPlayerName, out _);
+            playerNameExistsWarning.SetActive(playerNameExists);
         }
 
         private void Start()
@@ -80,7 +85,13 @@ namespace NeuroDerby.UI
 
         public PlayerNameInputDto GetCurrentValues()
         {
-            return new PlayerNameInputDto { Num = playerNum, Name = playerInput.text };
+            return new() { Num = playerNum, Name = _playerNameCleaner.Clean(playerInput.text) };
         }
+
+        public void AddOnValueChangedListener(UnityAction<string> action) 
+            => playerInput.onValueChanged.AddListener(action);
+        
+        public void RemoveOnValueChangedListener(UnityAction<string> action) 
+            => playerInput.onValueChanged.RemoveListener(action);
     }
 }

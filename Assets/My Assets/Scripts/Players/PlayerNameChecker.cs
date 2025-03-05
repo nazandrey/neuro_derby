@@ -4,29 +4,11 @@
     {
         private const int NameCharsLimit = 25;
 
-        public string GetTooltipTextForInvalidName()
-        {
-            return $"Name should be not empty and contain less or equal {NameCharsLimit} characters";
-        }
-        
-        public bool Check(string playerName, out string checkedPlayerName)
-        {
-            if (string.IsNullOrWhiteSpace(playerName))
-            {
-                checkedPlayerName = playerName;
-                return false;
-            }
-            else
-            {
-                checkedPlayerName = playerName.Trim();
-                if (checkedPlayerName.Length > NameCharsLimit)
-                {
-                    var shortenedPlayerName = checkedPlayerName.Remove(NameCharsLimit);
-                    checkedPlayerName = shortenedPlayerName.Trim();
-                }
+        public string GetTooltipTextForInvalidName() =>
+            $"Name should be not empty, contain less or equal {NameCharsLimit} characters";
 
-                return true;
-            }
-        }
+        public bool Check(string playerName) =>
+            !string.IsNullOrWhiteSpace(playerName) 
+            && !(playerName.Length > NameCharsLimit);
     }
 }

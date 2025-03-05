@@ -16,8 +16,9 @@ namespace NeuroDerby.Installers
             Container.BindInterfacesTo<PlayersSaver<string>>().AsCached();
             Container.BindInterfacesTo<PlayerNameChecker>().AsCached();
             Container.BindInterfacesTo<PlayerDataConverter>().AsCached();
+            Container.BindInterfacesTo<PlayerNameCleaner>().AsCached();
             Container.Bind<RatingCalculator>().FromNew().AsCached();
-            
+
             Container.BindInterfacesTo<GlickoScoreUpdater>().AsCached();
             
             Container.BindFactory<GameOverEvent, GameOverEvent.Factory>();

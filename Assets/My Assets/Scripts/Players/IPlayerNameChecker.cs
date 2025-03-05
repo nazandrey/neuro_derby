@@ -2,7 +2,7 @@
 {
     public interface IPlayerNameChecker
     {
-        bool Check(string playerName, out string checkedPlayerName);
+        bool Check(string playerName);
         string GetTooltipTextForInvalidName();
     }
 }

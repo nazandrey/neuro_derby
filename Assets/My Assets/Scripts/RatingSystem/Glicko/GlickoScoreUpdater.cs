@@ -9,19 +9,16 @@ namespace NeuroDerby.RatingSystem.Glicko
         private IScoreStorage<string, Player> _scoreStorage;
         private IPlayerNumToIdConverter<string> _playerNumToIdConverter;
         private IPlayersSaver _playersSaver;
-        private IPlayerNameChecker _playerNameChecker;
         private RatingCalculator _scoreCalculator;
 
         public GlickoScoreUpdater(IScoreStorage<string, Player> scoreStorage, 
             IPlayerNumToIdConverter<string> playerNumToIdConverter,
             IPlayersSaver playersSaver,
-            IPlayerNameChecker playerNameChecker,
             RatingCalculator scoreCalculator)
         {
             _scoreStorage = scoreStorage;
             _playerNumToIdConverter = playerNumToIdConverter;
             _playersSaver = playersSaver;
-            _playerNameChecker = playerNameChecker;
             _scoreCalculator = scoreCalculator;
         }
 
@@ -37,16 +34,12 @@ namespace NeuroDerby.RatingSystem.Glicko
         
         private void Calculate(bool isDraw, string winnerName, string loserName)
         {
-            if (!_playerNameChecker.Check(winnerName, out var checkedWinnerName)) 
-                return;
-            if (!TryGetRatingInfoByName(checkedWinnerName, out var winnerRatingInfo)
-                && !TryCreatePlayerAndReturnRatingInfo(checkedWinnerName, out winnerRatingInfo))
+            if (!TryGetRatingInfoByName(winnerName, out var winnerRatingInfo)
+                && !TryCreatePlayerAndReturnRatingInfo(winnerName, out winnerRatingInfo))
                 return;
             
-            if (!_playerNameChecker.Check(loserName, out var checkedLoserName)) 
-                return;
-            if (!TryGetRatingInfoByName(checkedLoserName, out var loserRatingInfo)
-                && !TryCreatePlayerAndReturnRatingInfo(checkedLoserName, out loserRatingInfo))
+            if (!TryGetRatingInfoByName(loserName, out var loserRatingInfo)
+                && !TryCreatePlayerAndReturnRatingInfo(loserName, out loserRatingInfo))
                 return;
 
             var results = new RatingPeriodResults();
