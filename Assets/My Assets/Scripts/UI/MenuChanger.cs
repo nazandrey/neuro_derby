@@ -26,5 +26,8 @@ namespace NeuroDerby.UI
                     break;
             }
         }
+
+        public void ShowFirstMenu()
+            => Open(MenuForm.FirstMenu);
     }
 }
