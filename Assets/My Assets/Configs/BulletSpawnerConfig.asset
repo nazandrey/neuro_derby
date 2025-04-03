@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4901e0f02ae4b4ea30427d28e4e84e, type: 3}
-  m_Name: ConfigsInstaller
+  m_Script: {fileID: 11500000, guid: 08245b527a484d4cb28892dd3208d144, type: 3}
+  m_Name: BulletSpawnerConfig
   m_EditorClassIdentifier: 
-  pathConfig: {fileID: 11400000, guid: ec700caeb7b9ded4ba2e25304d375afc, type: 2}
-  bulletSpawnerConfig: {fileID: 11400000, guid: 809f55c24962f114c87da15b3bf85fb0,
-    type: 2}
+  spawnRateSeconds: 2
