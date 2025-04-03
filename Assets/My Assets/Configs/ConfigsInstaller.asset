@@ -15,3 +15,4 @@ MonoBehaviour:
   pathConfig: {fileID: 11400000, guid: ec700caeb7b9ded4ba2e25304d375afc, type: 2}
   bulletSpawnerConfig: {fileID: 11400000, guid: 809f55c24962f114c87da15b3bf85fb0,
     type: 2}
+  difficultyConfig: {fileID: 11400000, guid: 914ced0171d31dd47b200c5dbf2890fe, type: 2}

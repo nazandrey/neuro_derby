@@ -10,11 +10,13 @@ namespace NeuroDerby.Installers
     {
         [SerializeField] private PathConfig pathConfig;
         [SerializeField] private BulletSpawnerConfig bulletSpawnerConfig;
+        [SerializeField] private DifficultyConfig difficultyConfig;
         
         public override void InstallBindings()
         {
             Container.BindInstance(pathConfig);
             Container.BindInstance(bulletSpawnerConfig);
+            Container.BindInstance(difficultyConfig);
         }
     }
 }
