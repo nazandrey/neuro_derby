@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace NeuroDerby.Game
 {
@@ -7,6 +8,7 @@ namespace NeuroDerby.Game
         [SerializeField] private Health health;
         [SerializeField] private PlayerInputController inputController;
         [SerializeField] private int playerNum;
+        [SerializeField] private Text playerName;
 
         public Health Health => health;
         public PlayerInputController InputController => inputController;
@@ -16,6 +18,7 @@ namespace NeuroDerby.Game
         {
             if (playerNum > 1)
                 throw new System.Exception("More than two players is not supported");
+            playerName.text = GameState.GetPlayerNameByNum(playerNum);
         }
     }
 }
