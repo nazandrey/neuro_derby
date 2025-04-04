@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DifficultyConfig
   m_EditorClassIdentifier: 
   bulletSpeed: 0.5
-  bulletDamage: 1
+  bulletDamage: 41

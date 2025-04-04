@@ -6,7 +6,7 @@ namespace NeuroDerby.Game
     public class DifficultyConfig : ScriptableObject
     {
         [SerializeField][Range(0,2)] private float bulletSpeed;
-        [SerializeField][Range(1,20)] private float bulletDamage;
+        [SerializeField][Range(1,50)] private float bulletDamage;
 
         public float BulletSpeed => bulletSpeed;
         public float BulletDamage => bulletDamage;
