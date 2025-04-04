@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -11,12 +12,18 @@ namespace NeuroDerby.Game
 
         private BulletSpawnerConfig _bulletSpawnerConfig;
         private Bullet.Pool _bulletPool;
+        private List<Bullet> _currBullets;
         
         [Inject]
         public void Construct(BulletSpawnerConfig bulletSpawnerConfig, Bullet.Pool bulletPool)
         {
             _bulletSpawnerConfig = bulletSpawnerConfig;
             _bulletPool = bulletPool;
+        }
+
+        private void Awake()
+        {
+            _currBullets = new List<Bullet>();
         }
 
         private void Start()
@@ -40,10 +47,18 @@ namespace NeuroDerby.Game
                 );
                 var bulletRotation = Quaternion.Euler(0,0, Random.Range(0, 360));
                 var bullet = _bulletPool.Spawn();
+                _currBullets.Add(bullet);
                 bullet.transform.position = bulletSpawnPosition;
                 bullet.transform.rotation = bulletRotation;
                 _timeBeforeSpawn = _bulletSpawnerConfig.SpawnRateSeconds;
             }
+        }
+
+        public void OnDestroy()
+        {
+            foreach (var currBullet in _currBullets)
+                if (currBullet.isActiveAndEnabled)
+                    _bulletPool.Despawn(currBullet);
         }
     }
 }
