@@ -8,6 +8,9 @@ namespace NeuroDerby.Game
         private float _speed;
         private float _damage;
         private Bullet.Pool _bulletPool;
+        private bool _isActive;
+        private SpriteRenderer _spriteRenderer;
+        private Collider2D _collider2D;
 
         [Inject]
         public void Construct(DifficultyConfig difficultyConfig, Bullet.Pool bulletPool)
@@ -16,7 +19,20 @@ namespace NeuroDerby.Game
             _damage = difficultyConfig.BulletDamage;
             _bulletPool = bulletPool;
         }
-        
+
+        private void Awake()
+        {
+            _isActive = false;
+        }
+
+        private void Start()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            ChangeAlphaForSprite(0);
+            _collider2D = GetComponent<Collider2D>();
+            _collider2D.enabled = false;
+        }
+
         private void OnCollisionEnter2D(Collision2D collision2D)
         {
             var playerHealth = collision2D.gameObject.GetComponent<Health>();
@@ -38,7 +54,26 @@ namespace NeuroDerby.Game
 
         private void FixedUpdate()
         {
-            transform.position += transform.up * _speed;
+            if (_isActive)
+            {
+                transform.position += transform.up * _speed;
+            }
+            else if (_spriteRenderer.color.a >= 0.99f)
+            {
+                _isActive = true;
+                _collider2D.enabled = true;
+            }
+            else
+            {
+                ChangeAlphaForSprite(_spriteRenderer.color.a + 0.01f);
+            }
+        }
+
+        private void ChangeAlphaForSprite(float newAlphaVal)
+        {
+            var newColor = _spriteRenderer.color;
+            newColor.a = newAlphaVal;
+            _spriteRenderer.color = newColor;
         }
 
         public class Pool : MonoMemoryPool<Bullet>
