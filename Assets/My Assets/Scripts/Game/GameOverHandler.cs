@@ -41,6 +41,7 @@ namespace NeuroDerby.Game
             var gameOverText = isDraw ? "DRAW!" : $"Player {winnerNum + 1} WON!";
             ShowPlayerGameOverText(gameOverText);
             GameOverEvent.Dispatch(new GameOverEventData(isDraw, winnerNum, loserNum));
+            GameState.SetGameIsOver(true);
         }
 
         private void ShowPlayerGameOverText(string text)

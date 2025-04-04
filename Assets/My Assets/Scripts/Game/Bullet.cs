@@ -23,7 +23,8 @@ namespace NeuroDerby.Game
             var wall = collision2D.gameObject.GetComponent<Wall>();
             if (playerHealth != null)
             {
-                playerHealth.Hurt(_damage);
+                if (!GameState.IsOver)
+                    playerHealth.Hurt(_damage);
                 _bulletPool.Despawn(this);
             }
             else if (wall != null)

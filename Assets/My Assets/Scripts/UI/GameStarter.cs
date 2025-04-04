@@ -50,6 +50,7 @@ namespace NeuroDerby.UI
             if (_hasSameNames)
                 return;
 
+            GameState.SetGameIsOver(false);
             GameState.ClearPlayerNames();
             foreach (var playerNameForm in playerNameForms)
             {

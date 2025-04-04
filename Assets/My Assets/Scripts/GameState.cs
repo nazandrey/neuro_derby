@@ -6,6 +6,13 @@ namespace NeuroDerby
     {
         private static readonly Dictionary<int, string> CurrentPlayerNames = new Dictionary<int, string>();
 
+        public static bool IsOver { get; private set; }
+
+        public static void SetGameIsOver(bool isOver)
+        {
+            IsOver = isOver;
+        }
+        
         public static void ClearPlayerNames()
         {
             CurrentPlayerNames.Clear();
