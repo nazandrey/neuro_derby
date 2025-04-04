@@ -11,7 +11,8 @@ namespace NeuroDerby
 
         private void Start()
         {
-            restartButton?.onClick.AddListener(() => SceneManager.LoadScene(0));
+            GameState.SetGameIsOver(false);
+            restartButton?.onClick.AddListener(() => SceneManager.LoadScene("Game"));
         }
     }
 }
