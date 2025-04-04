@@ -19,7 +19,7 @@ namespace NeuroDerby.UI
             backButton.onClick.RemoveListener(OnBackButtonClick);
         }
 
-        private void OnBackButtonClick()
+        protected virtual void OnBackButtonClick()
         {
             SceneHelpers.LoadPreviousScene();
         }
