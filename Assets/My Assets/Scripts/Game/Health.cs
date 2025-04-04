@@ -37,7 +37,7 @@ namespace NeuroDerby.Game
 
         private void SetUiHealth()
         {
-            healthText.text = health.ToString();
+            healthText.text = health.ToString("F1");
         }
     }
 }
