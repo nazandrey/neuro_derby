@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NeuroDerby.Extensions;
+using UnityEngine;
 using Zenject;
 
 namespace NeuroDerby.Game
@@ -10,7 +11,7 @@ namespace NeuroDerby.Game
         private Bullet.Pool _bulletPool;
         private bool _isActive;
         private SpriteRenderer _spriteRenderer;
-        private Collider2D _collider2D;
+        private Collider2D _collider;
 
         [Inject]
         public void Construct(DifficultyConfig difficultyConfig, Bullet.Pool bulletPool)
@@ -18,9 +19,10 @@ namespace NeuroDerby.Game
             _speed = difficultyConfig.BulletSpeed;
             _damage = difficultyConfig.BulletDamage;
             _bulletPool = bulletPool;
+            _isActive = false;
         }
 
-        private void Awake()
+        public void Initialize()
         {
             _isActive = false;
         }
@@ -28,9 +30,7 @@ namespace NeuroDerby.Game
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            ChangeAlphaForSprite(0);
-            _collider2D = GetComponent<Collider2D>();
-            _collider2D.enabled = false;
+            _collider = GetComponent<Collider2D>();
         }
 
         private void OnCollisionEnter2D(Collision2D collision2D)
@@ -61,23 +61,24 @@ namespace NeuroDerby.Game
             else if (_spriteRenderer.color.a >= 0.99f)
             {
                 _isActive = true;
-                _collider2D.enabled = true;
+                _collider.enabled = true;
             }
             else
             {
-                ChangeAlphaForSprite(_spriteRenderer.color.a + 0.01f);
+                _spriteRenderer.ChangeAlpha(_spriteRenderer.color.a + 0.01f);
             }
-        }
-
-        private void ChangeAlphaForSprite(float newAlphaVal)
-        {
-            var newColor = _spriteRenderer.color;
-            newColor.a = newAlphaVal;
-            _spriteRenderer.color = newColor;
         }
 
         public class Pool : MonoMemoryPool<Bullet>
         {
+            protected override void OnSpawned(Bullet item)
+            {
+                base.OnSpawned(item);
+                var spriteRenderer = item.GetComponent<SpriteRenderer>();
+                spriteRenderer.ChangeAlpha(0);
+                var collider = item.GetComponent<Collider2D>();
+                collider.enabled = false;
+            }
         }
     }
 }

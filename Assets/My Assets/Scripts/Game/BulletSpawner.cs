@@ -50,6 +50,7 @@ namespace NeuroDerby.Game
                 _currBullets.Add(bullet);
                 bullet.transform.position = bulletSpawnPosition;
                 bullet.transform.rotation = bulletRotation;
+                bullet.Initialize();
                 _timeBeforeSpawn = _bulletSpawnerConfig.SpawnRateSeconds;
             }
         }
