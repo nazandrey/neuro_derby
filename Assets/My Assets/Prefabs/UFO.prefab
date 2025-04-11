@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHierarchy: {fileID: 0}
-  speed: 20
+  speed: 900
   xText: {fileID: 0}
   yText: {fileID: 0}
   hDirectionText: {fileID: 0}
