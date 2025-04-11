@@ -13,12 +13,14 @@ namespace NeuroDerby.Game
         private BulletSpawnerConfig _bulletSpawnerConfig;
         private Bullet.Pool _bulletPool;
         private List<Bullet> _currBullets;
+        private bool _isEnabled = true;
         
         [Inject]
         public void Construct(BulletSpawnerConfig bulletSpawnerConfig, Bullet.Pool bulletPool)
         {
             _bulletSpawnerConfig = bulletSpawnerConfig;
             _bulletPool = bulletPool;
+            _isEnabled = _bulletSpawnerConfig.IsEnabled;
         }
 
         private void Awake()
@@ -33,6 +35,9 @@ namespace NeuroDerby.Game
 
         public void Update()
         {
+            if (!_isEnabled)
+                return;
+            
             if (_timeBeforeSpawn > 0)
             {
                 _timeBeforeSpawn -= Time.deltaTime;
