@@ -2,28 +2,28 @@
 
 namespace NeuroDerby
 {
-    public static class GameState
+    public class GameState
     {
-        private static readonly Dictionary<int, string> CurrentPlayerNames = new Dictionary<int, string>();
+        private readonly Dictionary<int, string> CurrentPlayerNames = new Dictionary<int, string>();
 
-        public static bool IsOver { get; private set; }
+        public bool IsOver { get; private set; }
 
-        public static void SetGameIsOver(bool isOver)
+        public void SetGameIsOver(bool isOver)
         {
             IsOver = isOver;
         }
         
-        public static void ClearPlayerNames()
+        public void ClearPlayerNames()
         {
             CurrentPlayerNames.Clear();
         }
 
-        public static void AddPlayer(int num, string name)
+        public void AddPlayer(int num, string name)
         {
             CurrentPlayerNames.Add(num, name);
         }
         
-        public static string GetPlayerNameByNum(int num)
+        public string GetPlayerNameByNum(int num)
         {
             if (CurrentPlayerNames.TryGetValue(num, out var name))
                 return name;

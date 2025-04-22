@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace NeuroDerby.Game
 {
@@ -13,12 +14,20 @@ namespace NeuroDerby.Game
         public Health Health => health;
         public PlayerInputController InputController => inputController;
         public int PlayerNum => playerNum;
+        
+        private GameState _gameState;
+
+        [Inject]
+        private void Construct(GameState gameState)
+        {
+            _gameState = gameState;
+        }
 
         private void Awake()
         {
             if (playerNum > 1)
                 throw new System.Exception("More than two players is not supported");
-            playerName.text = GameState.GetPlayerNameByNum(playerNum);
+            playerName.text = _gameState.GetPlayerNameByNum(playerNum);
         }
     }
 }

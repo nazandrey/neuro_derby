@@ -4,6 +4,7 @@ using NeuroDerby.Core;
 using NeuroDerby.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace NeuroDerby.UI
 {
@@ -19,6 +20,13 @@ namespace NeuroDerby.UI
         private ChoosingNameForm choosingNameForm;
 
         private bool _hasSameNames;
+        private GameState _gameState;
+        
+        [Inject]
+        private void Construct(GameState gameState)
+        {
+            _gameState = gameState;
+        }
 
         private void Awake()
         {
@@ -50,12 +58,12 @@ namespace NeuroDerby.UI
             if (_hasSameNames)
                 return;
 
-            GameState.SetGameIsOver(false);
-            GameState.ClearPlayerNames();
+            _gameState.SetGameIsOver(false);
+            _gameState.ClearPlayerNames();
             foreach (var playerNameForm in playerNameForms)
             {
                 var playerNameInputDto = playerNameForm.GetCurrentValues();
-                GameState.AddPlayer(playerNameInputDto.Num, playerNameInputDto.Name);
+                _gameState.AddPlayer(playerNameInputDto.Num, playerNameInputDto.Name);
             }
 
             SceneHelpers.LoadScene(SceneName.Game);

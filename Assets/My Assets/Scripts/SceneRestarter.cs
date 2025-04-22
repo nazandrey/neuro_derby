@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using NeuroDerby.Core;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace NeuroDerby
 {
@@ -9,10 +11,19 @@ namespace NeuroDerby
         [SerializeField]
         private Button restartButton;
 
+        private GameState _gameState;
+        
+        [Inject]
+        private void Construct(GameState gameState)
+        {
+            _gameState = gameState;
+        }
+        
         private void Start()
         {
-            GameState.SetGameIsOver(false);
-            restartButton?.onClick.AddListener(() => SceneManager.LoadScene("Game"));
+            _gameState.SetGameIsOver(false);
+            if (restartButton)
+                restartButton.onClick.AddListener(() => SceneManager.LoadScene(SceneName.Game.ToString()));
         }
     }
 }

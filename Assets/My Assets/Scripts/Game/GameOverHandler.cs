@@ -14,10 +14,13 @@ namespace NeuroDerby.Game
 
         public GameOverEvent GameOverEvent { get; private set; }
 
+        private GameState _gameState;
+
         [Inject]
-        public void Construct(GameOverEvent.Factory gameOverEventFactory)
+        public void Construct(GameOverEvent.Factory gameOverEventFactory, GameState gameState)
         {
             GameOverEvent = gameOverEventFactory.Create();
+            _gameState = gameState;
         }
 
         private void Start()
@@ -38,11 +41,11 @@ namespace NeuroDerby.Game
 
         private void HandleGameOver(bool isDraw, int winnerNum = 0, int loserNum = default)
         {
-            var winnerName = GameState.GetPlayerNameByNum(winnerNum);
+            var winnerName = _gameState.GetPlayerNameByNum(winnerNum);
             var gameOverText = isDraw ? "DRAW!" : $"{winnerName} (player {winnerNum + 1}) WON!";
             ShowPlayerGameOverText(gameOverText);
             GameOverEvent.Dispatch(new GameOverEventData(isDraw, winnerNum, loserNum));
-            GameState.SetGameIsOver(true);
+            _gameState.SetGameIsOver(true);
         }
 
         private void ShowPlayerGameOverText(string text)

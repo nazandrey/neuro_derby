@@ -12,14 +12,16 @@ namespace NeuroDerby.Game
         private bool _isActive;
         private SpriteRenderer _spriteRenderer;
         private Collider2D _collider;
+        private GameState _gameState;
 
         [Inject]
-        public void Construct(DifficultyConfig difficultyConfig, Bullet.Pool bulletPool)
+        public void Construct(DifficultyConfig difficultyConfig, Bullet.Pool bulletPool, GameState gameState)
         {
             _speed = difficultyConfig.BulletSpeed;
             _damage = difficultyConfig.BulletDamage;
             _bulletPool = bulletPool;
             _isActive = false;
+            _gameState = gameState;
         }
 
         public void Initialize()
@@ -39,7 +41,7 @@ namespace NeuroDerby.Game
             var wall = collision2D.gameObject.GetComponent<Wall>();
             if (playerHealth != null)
             {
-                if (!GameState.IsOver)
+                if (!_gameState.IsOver)
                     playerHealth.Hurt(_damage);
                 _bulletPool.Despawn(this);
             }
