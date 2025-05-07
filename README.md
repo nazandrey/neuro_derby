@@ -1,7 +1,7 @@
 Данный проект изначально предполагал совместить нейронные сети и дерби, однако в конечном счете он стал больше площадкой для различных экспериментов:
 
-1. Test-driven development ([HealthBarModelTest](Assets/Tests/EditMode/HealthBarModelTest.cs) HealthBarModel и [ScoreStorageTests](Assets/Tests/EditMode/ScoreStorageTests.cs))
-2. Углубленная работа с обобщениями/дженериками (тоже [ScoreStorageTests](Assets/Tests/EditMode/ScoreStorageTests.cs) и немного [PlayerDataConverter](Assets/My%20Assets/Scripts/Players/PlayerDataConverter.cs))
+1. Test-driven development ([HealthBarModelTest](Assets/Tests/EditMode/HealthBarModelTest.cs) и [ScoreStorageTests](Assets/Tests/EditMode/ScoreStorageTests.cs))
+2. Углубленная работа с обобщениями/дженериками (снова [ScoreStorage](Assets/My%20Assets/Scripts/RatingSystem/ScoreStorage.cs) и немного [PlayerDataConverter](Assets/My%20Assets/Scripts/Players/PlayerDataConverter.cs))
 3. Общение между объектами через псевдособытия по статье [An Alternative to Events by JacksonDunstan](https://jacksondunstan.com/articles/3753) - (как простой пример [DeathEvent](Assets/My%20Assets/Scripts/Game/EventDatas/DeathEvent.cs), создание объекта события и его вызов в [Health](Assets/My%20Assets/Scripts/Game/Health.cs), и инициализация обработчика и непосредственно обработка события в [GameOverHandler](Assets/My%20Assets/Scripts/Game/GameOverHandler.cs)
 4. Использование рейтинговой системы Глико 2 ([взята отсюда](https://github.com/MaartenStaa/glicko2-csharp/tree/master/src) и внедрение ее в проект - [GlickoScoreUpdater](Assets/My%20Assets/Scripts/RatingSystem/Glicko/GlickoScoreUpdater.cs) и его проверка/калибровка/тесты в [GlickoTest](Assets/Tests/EditMode/GlickoTest.cs)
 
